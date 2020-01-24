@@ -66,7 +66,6 @@ const catcher = {
     },
 };
 
-
 chrome.contextMenus.onClicked.addListener(catcher.onClicked);
 
 chrome.runtime.onInstalled.addListener(catcher.onInstalled);
