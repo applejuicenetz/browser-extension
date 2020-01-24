@@ -8,8 +8,6 @@ const catcher = {
     },
 
     onClicked: function (info, tab) {
-        let link = info.linkUrl;
-
         if (0 === localStorage.length) {
             catcher.notification(
                 chrome.i18n.getMessage('missingConfigurationTitle'),
@@ -17,42 +15,44 @@ const catcher = {
             );
         }
 
-        let coreUrl = localStorage['host'];
-        let corePort = localStorage['port'];
-        let corePass = localStorage['password'];
+        let links = info.linkUrl.match(/ajfsp\:\/\/file\|([^|]*)\|([a-z0-9]{32})\|([0-9]*)\//g);
 
-        coreUrl = coreUrl.lastIndexOf('/') === coreUrl.length - 1 ? coreUrl.substr(0, coreUrl.length - 1) : coreUrl;
-
-        if (!link.match(/^ajfsp\:\/\/file\|(.*)\|([a-z0-9]{32})\|([0-9]*)\//)) {
-            catcher.notification(
-                chrome.i18n.getMessage('linkNotValidTitle'),
-                link
-            );
-
+        if (!links || 0 === links.length) {
+            catcher.notification(chrome.i18n.getMessage('linkNotValidTitle'), info.linkUrl);
             return;
         }
+        links.forEach(catcher.handleLink);
+    },
+
+    handleLink: function (ajfsp) {
+        let coreUrl = localStorage['host'];
+        coreUrl = coreUrl.lastIndexOf('/') === coreUrl.length - 1 ? coreUrl.substr(0, coreUrl.length - 1) : coreUrl;
 
         if (localStorage['mode'] === 'indirect') {
-            let phpUrl = localStorage['phpgui'];
-            phpUrl += (phpUrl.lastIndexOf('/') === phpUrl.length - 1 ? '' : '/');
+            let phpGUI = localStorage['phpgui'];
+            phpGUI += (phpGUI.lastIndexOf('/') === phpGUI.length - 1 ? '' : '/');
 
-            $.get(phpUrl, function () {
-                $.post(phpUrl + 'main/index.php', {
+            $.get(phpGUI, function () {
+                $.post(phpGUI + 'main/index.php', {
                     ip: coreUrl,
-                    port: corePort,
-                    cpass: corePass
+                    port: localStorage['port'],
+                    cpass: localStorage['password']
                 }, function () {
-                    $.get(phpUrl + 'main/top.php', {ajfsp_link: link}, catcher.showResult);
+                    $.get(phpGUI + 'main/top.php', {ajfsp_link: ajfsp}, function (result) {
+                        catcher.showResult(result, ajfsp);
+                    });
                 });
             });
         } else {
-            let url = coreUrl + ':' + corePort + '/function/processlink';
-            let pass = CryptoJS.MD5(corePass);
-            $.get(url, {link: link, password: pass.toString()}, catcher.showResult);
+            let url = coreUrl + ':' + localStorage['port'] + '/function/processlink';
+            let pass = CryptoJS.MD5(localStorage['password']);
+            $.get(url, {link: ajfsp, password: pass.toString()}, function (result) {
+                catcher.showResult(result, ajfsp);
+            });
         }
     },
 
-    showResult: function (result) {
+    showResult: function (result, link) {
         if ($(result).find('#newlinkinfo').text().trim().match(/^Download\:(.*)ok$/) || result === 'ok') {
             catcher.notification(chrome.i18n.getMessage('linkCatchedSuccessTitle'), link.split('|')[1]);
         } else {

@@ -11,13 +11,28 @@ $(document).ready(function () {
 
     $('form').submit(function (e) {
         e.preventDefault();
-        localStorage['mode'] = $('input[name=mode]:checked').val();
-        localStorage['host'] = $('input[name=host]').val().trim();
-        localStorage['phpgui'] = $('input[name=phpgui]').val().trim();
-        localStorage['port'] = $('input[name=port]').val().trim();
-        localStorage['password'] = $('input[name=password]').val().trim();
 
-        $('#status').fadeIn().delay(1000).fadeOut();
+        let host = $('input[name=host]').val().trim();
+
+        chrome.permissions.request({
+                origins: ["<all_urls>"]
+            },
+            function (granted) {
+                if (granted) {
+                    localStorage['mode'] = $('input[name=mode]:checked').val();
+                    localStorage['host'] = host;
+                    localStorage['phpgui'] = $('input[name=phpgui]').val().trim();
+                    localStorage['port'] = $('input[name=port]').val().trim();
+                    localStorage['password'] = $('input[name=password]').val().trim();
+
+                    $('#status .success').fadeIn().delay(1000).fadeOut();
+                } else {
+                    $('#status .error').fadeIn().delay(1000).fadeOut();
+
+                }
+            });
+
+
     });
 
     if (0 !== localStorage.length) {

@@ -8,6 +8,9 @@
         "notifications",
         "activeTab"
     ],
+    "optional_permissions": [
+        "<all_urls>"
+    ],
     "background": {
         "persistent": false,
         "scripts": [
