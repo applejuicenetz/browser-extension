@@ -26,34 +26,53 @@ const catcher = {
 
     handleLink: function (ajfsp) {
         let coreUrl = localStorage['host'];
-        coreUrl = coreUrl.lastIndexOf('/') === coreUrl.length - 1 ? coreUrl.substr(0, coreUrl.length - 1) : coreUrl;
+        coreUrl = coreUrl.endsWith('/') ? coreUrl.slice(0, -1) : coreUrl;
 
         if (localStorage['mode'] === 'indirect') {
             let phpGUI = localStorage['phpgui'];
-            phpGUI += (phpGUI.lastIndexOf('/') === phpGUI.length - 1 ? '' : '/');
+            phpGUI += (phpGUI.endsWith('/') ? '' : '/');
 
-            $.get(phpGUI, function () {
-                $.post(phpGUI + 'main/index.php', {
-                    ip: coreUrl,
-                    port: localStorage['port'],
-                    cpass: localStorage['password']
-                }, function () {
-                    $.get(phpGUI + 'main/top.php', {ajfsp_link: ajfsp}, function (result) {
-                        catcher.showResult(result, ajfsp);
-                    });
+            $.post(phpGUI + 'main/index.php', {
+                host: coreUrl + ':' + localStorage['port'], // new phpGUI version
+                ip: coreUrl,
+                port: localStorage['port'],
+                cpass: localStorage['password']
+            })
+                .done(function (result) {
+                    $.get(phpGUI + 'main/top.php', {ajfsp_link: ajfsp})
+                        .done(function (result) {
+                            catcher.handleResult(result, ajfsp);
+                        })
+                        .fail(function (xhr, status, error) {
+                            catcher.notification('phpGUI connection error', status);
+                        });
+                })
+                .fail(function (xhr, status, error) {
+                    catcher.notification('phpGUI connection error', status);
                 });
-            });
         } else {
             let url = coreUrl + ':' + localStorage['port'] + '/function/processlink';
             let pass = CryptoJS.MD5(localStorage['password']);
-            $.get(url, {link: ajfsp, password: pass.toString()}, function (result) {
-                catcher.showResult(result, ajfsp);
-            });
+            $.get(url, {link: ajfsp, password: pass.toString()})
+                .done(function (result) {
+                    catcher.handleResult(result, ajfsp);
+                })
+                .fail(function (xhr, status, error) {
+                    catcher.notification('Core connection error', status);
+                });
         }
     },
 
-    showResult: function (result, link) {
-        if ($(result).find('#newlinkinfo').text().trim().match(/^Download\:(.*)ok$/) || result === 'ok') {
+    handleResult: function (result, link) {
+        if (result.match('wrong password. access denied')) {
+            catcher.notification(
+                chrome.i18n.getMessage('coreWrongPasswordTitle'),
+                chrome.i18n.getMessage('coreWrongPasswordText')
+            );
+            return;
+        }
+
+        if ('ok' === result || result.match(/Download:(.*)ok/)) {
             catcher.notification(chrome.i18n.getMessage('linkCatchedSuccessTitle'), link.split('|')[1]);
         } else {
             catcher.notification(chrome.i18n.getMessage('linkCatchedErrorTitle'), link.split('|')[1]);
