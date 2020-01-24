@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>AppleJuice-Link-Catcher</title>
+    <meta charset="utf-8">
+    <style>
+        form {
+            margin: 1em;
+        }
+
+        dl {
+            display: flex;
+            flex-flow: row;
+            flex-wrap: wrap;
+            white-space: nowrap;
+            width: 100%;
+            overflow: visible;
+        }
+
+        dl dt {
+            flex: 0 0 30%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        dl dd {
+            flex: 0 0 70%;
+            margin-left: auto;
+            text-align: left;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        input:not([type="radio"]) {
+            width: 90%;
+        }
+
+        .phpgui {
+            display: none;
+        }
+
+        input {
+            margin: 5px;
+        }
+
+        #status {
+            display: none;
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<form>
+    <dl>
+        <dt>Zugriffsart</dt>
+        <dd>
+            <label>
+                <input type="radio" name="mode" value="direct" checked="checked"/>
+                Direkt
+            </label>
+            <label title="Über ein PHP-GUI">
+                <input type="radio" name="mode" value="indirect"/>
+                Indirekt
+            </label>
+        </dd>
+
+        <dt class="phpgui">PHP-GUI URL/IP</dt>
+        <dd class="phpgui"><input name="phpgui" type="url" value="" placeholder="http://"/></dd>
+
+        <dt>Core-URL/IP</dt>
+        <dd><input name="host" type="url" value="" placeholder="http://" required/></dd>
+
+        <dt>Core-Port</dt>
+        <dd><input name="port" type="number" value="9851" required/></dd>
+
+        <dt>Core-Passwort</dt>
+        <dd><input name="password" type="password" value="" required/></dd>
+
+        <dt><span id="status">Gespeichert</span></dt>
+        <dd>
+            <button type="submit">Speichern</button>
+        </dd>
+    </dl>
+
+</form>
+<script src="../src/jquery.min.js"></script>
+<script src="options.js"></script>
+</body>
+</html>

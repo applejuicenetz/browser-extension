@@ -1,0 +1,30 @@
+{
+    "extensionName": {
+        "message": "appleJuice Link Catcher",
+        "description": "Name of the extension."
+    },
+    "extensionDescription": {
+        "message": "sendet appleJuice links (ajfsp) direkt an den Core",
+        "description": "Description of the extension."
+    },
+    "missingConfigurationTitle": {
+        "message": "AddOn nicht konfiguriert",
+        "description": "title for message if extension not configured"
+    },
+    "missingConfigurationText": {
+        "message": "bitte konfigurier mich.",
+        "description": "text for message if extension not configured"
+    },
+    "linkNotValidTitle": {
+        "message": "kein gültiger appleJuice Link",
+        "description": "text for message if link not match"
+    },
+    "linkCatchedSuccessTitle": {
+        "message": "Link wurde übernommen",
+        "description": "text for message if link catched"
+    },
+    "linkCatchedErrorTitle": {
+        "message": "Link wurde nicht übernommen",
+        "description": "text for message if link not catched"
+    }
+}
