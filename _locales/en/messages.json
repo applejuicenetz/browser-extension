@@ -26,5 +26,13 @@
     "linkCatchedErrorTitle": {
         "message": "Link has not been catched.",
         "description": "text for message if link not catched"
+    },
+    "coreWrongPasswordTitle": {
+        "message": "access denied",
+        "description": "text if core access denied"
+    },
+    "coreWrongPasswordText": {
+        "message": "wrong password",
+        "description": "text for wrong password"
     }
 }
