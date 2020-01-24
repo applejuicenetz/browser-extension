@@ -43,9 +43,15 @@
             margin: 5px;
         }
 
-        #status {
+        .success {
             display: none;
             color: green;
+            font-weight: bold;
+        }
+
+        .error {
+            display: none;
+            color: red;
             font-weight: bold;
         }
     </style>
@@ -77,7 +83,10 @@
         <dt>Core-Passwort</dt>
         <dd><input name="password" type="password" value="" required/></dd>
 
-        <dt><span id="status">Gespeichert</span></dt>
+        <dt id="status">
+            <span class="success">Gespeichert</span>
+            <span class="error">Fehler</span>
+        </dt>
         <dd>
             <button type="submit">Speichern</button>
         </dd>
