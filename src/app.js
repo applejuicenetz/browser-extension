@@ -1,7 +1,7 @@
 const catcher = {
     onInstalled: function () {
         chrome.contextMenus.create({
-            'title': 'Catch AJFSP',
+            'title': 'appleJuice Link Catcher',
             'contexts': ['link'],
             'id': 'ajfsp_catcher'
         });
@@ -80,8 +80,14 @@ const catcher = {
     },
 
     notification: function (title, text) {
-        let n = new Notification(title, {body: text, icon: 'icons/apple256.png'});
-        setTimeout(n.close, 3000);
+        chrome.notifications.create(
+            'appleJuice', {
+                type: 'basic',
+                iconUrl: 'icons/apple256.png',
+                title: title,
+                message: text
+            }, function () {
+            });
     },
 };
 

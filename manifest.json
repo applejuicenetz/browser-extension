@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "__MSG_extensionName__",
     "description": "__MSG_extensionDescription__",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "permissions": [
         "contextMenus",
         "notifications"
@@ -11,7 +11,6 @@
         "<all_urls>"
     ],
     "background": {
-        "persistent": false,
         "scripts": [
             "src/jquery.min.js",
             "src/md5.js",
