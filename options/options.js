@@ -1,46 +1,46 @@
-$(document).ready(function () {
-    $('input[name=mode][value=direct]').click(function (e) {
-        $('.phpgui').hide();
-        $('input[name=phpgui]').attr('required', false);
+document.addEventListener('DOMContentLoaded', function (event) {
+    document.querySelector('input[name=mode][value=direct]').addEventListener('click', function (e) {
+        document.querySelectorAll('.phpgui').forEach(el => el.style.display = 'none');
+        document.querySelector('input[name=phpgui]').removeAttribute('required');
     });
 
-    $('input[name=mode][value=indirect]').click(function (e) {
-        $('.phpgui').show();
-        $('input[name=phpgui]').attr('required', true);
+    document.querySelector('input[name=mode][value=indirect]').addEventListener('click', function (e) {
+        document.querySelectorAll('.phpgui').forEach(el => el.style.display = 'block');
+        document.querySelector('input[name=phpgui]').setAttribute('required', 'required');
     });
 
-    $('form').submit(function (e) {
+    document.querySelector('form').addEventListener('submit', function (e) {
         e.preventDefault();
-
-        let host = $('input[name=host]').val().trim();
-
         chrome.permissions.request({
-                origins: ["<all_urls>"]
+                origins: ['<all_urls>']
             },
             function (granted) {
                 if (granted) {
-                    localStorage['mode'] = $('input[name=mode]:checked').val();
-                    localStorage['host'] = host;
-                    localStorage['phpgui'] = $('input[name=phpgui]').val().trim();
-                    localStorage['port'] = $('input[name=port]').val().trim();
-                    localStorage['password'] = $('input[name=password]').val().trim();
-
-                    $('#status .success').fadeIn().delay(1000).fadeOut();
+                    chrome.storage.sync.set({
+                        mode: document.querySelector('input[name=mode]:checked').value,
+                        host: document.querySelector('input[name=host]').value.trim(),
+                        phpgui: document.querySelector('input[name=phpgui]').value.trim(),
+                        port: document.querySelector('input[name=port]').value.trim(),
+                        password: document.querySelector('input[name=password]').value.trim(),
+                    }, function () {
+                        let state = document.querySelector('#status .success');
+                        state.style.display = 'inline';
+                        setTimeout(() => state.style.display = 'none', 1500);
+                    });
                 } else {
-                    $('#status .error').fadeIn().delay(1000).fadeOut();
-
+                    let state = document.querySelector('#status .error');
+                    setTimeout(() => state.style.display = 'none', 1500);
                 }
             });
-
-
     });
 
-    if (0 !== localStorage.length) {
-        $('input[name=mode][value=' + localStorage['mode'] + ']').click();
-
-        $('input[name=phpgui]').val(localStorage['phpgui']);
-        $('input[name=host]').val(localStorage['host']);
-        $('input[name=port]').val(localStorage['port']);
-        $('input[name=password]').val(localStorage['password']);
-    }
+    chrome.storage.sync.get(null, function (config) {
+        if (config && config['mode']) {
+            document.querySelector('input[name=mode][value=' + config['mode'] + ']').click();
+            document.querySelector('input[name=phpgui]').value = config['phpgui'];
+            document.querySelector('input[name=host]').value = config['host'];
+            document.querySelector('input[name=port]').value = config['port'];
+            document.querySelector('input[name=password]').value = config['password'];
+        }
+    });
 });
