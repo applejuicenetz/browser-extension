@@ -8,35 +8,41 @@ const catcher = {
     },
 
     onClicked: function (info, tab) {
-        if (0 === localStorage.length) {
-            catcher.notification(
-                chrome.i18n.getMessage('missingConfigurationTitle'),
-                chrome.i18n.getMessage('missingConfigurationText')
-            );
-        }
+        chrome.storage.sync.get(null, function (config) {
+            if (!config) {
+                catcher.notification(
+                    chrome.i18n.getMessage('missingConfigurationTitle'),
+                    chrome.i18n.getMessage('missingConfigurationText')
+                );
+                return;
+            }
 
-        let links = info.linkUrl.match(/ajfsp\:\/\/file\|([^|]*)\|([a-z0-9]{32})\|([0-9]*)\//g);
+            let links = info.linkUrl.match(/ajfsp\:\/\/file\|([^|]*)\|([a-z0-9]{32})\|([0-9]*)\//g);
 
-        if (!links || 0 === links.length) {
-            catcher.notification(chrome.i18n.getMessage('linkNotValidTitle'), info.linkUrl);
-            return;
-        }
-        links.forEach(catcher.handleLink);
+            if (!links || 0 === links.length) {
+                catcher.notification(chrome.i18n.getMessage('linkNotValidTitle'), info.linkUrl);
+                return;
+            }
+
+            links.forEach(function (ajfsp) {
+                catcher.handleLink(ajfsp, config);
+            });
+        });
     },
 
-    handleLink: function (ajfsp) {
-        let coreUrl = localStorage['host'];
+    handleLink: function (ajfsp, config) {
+        let coreUrl = config['host'];
         coreUrl = coreUrl.endsWith('/') ? coreUrl.slice(0, -1) : coreUrl;
 
-        if (localStorage['mode'] === 'indirect') {
-            let phpGUI = localStorage['phpgui'];
+        if (config['mode'] === 'indirect') {
+            let phpGUI = config['phpgui'];
             phpGUI += (phpGUI.endsWith('/') ? '' : '/');
 
             $.post(phpGUI + 'main/index.php', {
-                host: coreUrl + ':' + localStorage['port'], // new phpGUI version
+                host: coreUrl + ':' + config['port'], // new phpGUI version
                 ip: coreUrl,
-                port: localStorage['port'],
-                cpass: localStorage['password']
+                port: config['port'],
+                cpass: config['password']
             })
                 .done(function (result) {
                     $.get(phpGUI + 'main/top.php', {ajfsp_link: ajfsp})
@@ -51,8 +57,8 @@ const catcher = {
                     catcher.notification('phpGUI connection error', status);
                 });
         } else {
-            let url = coreUrl + ':' + localStorage['port'] + '/function/processlink';
-            let pass = CryptoJS.MD5(localStorage['password']);
+            let url = coreUrl + ':' + config['port'] + '/function/processlink';
+            let pass = CryptoJS.MD5(config['password']);
             $.get(url, {link: ajfsp, password: pass.toString()})
                 .done(function (result) {
                     catcher.handleResult(result, ajfsp);
@@ -80,14 +86,12 @@ const catcher = {
     },
 
     notification: function (title, text) {
-        chrome.notifications.create(
-            'appleJuice', {
-                type: 'basic',
-                iconUrl: 'icons/apple256.png',
-                title: title,
-                message: text
-            }, function () {
-            });
+        chrome.notifications.create('appleJuice', {
+            type: 'basic',
+            iconUrl: 'icons/apple256.png',
+            title: title,
+            message: text
+        });
     },
 };
 

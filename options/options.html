@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>AppleJuice-Link-Catcher</title>
+    <title>appleJuice Link Catcher</title>
     <meta charset="utf-8">
     <style>
-        form {
-            margin: 1em;
-        }
-
         dl {
             display: flex;
             flex-flow: row;
@@ -39,8 +35,8 @@
             display: none;
         }
 
-        input {
-            margin: 5px;
+        input, button {
+            margin: 5px !important;
         }
 
         .success {
@@ -59,15 +55,15 @@
 <body>
 <form>
     <dl>
-        <dt>Zugriffsart</dt>
+        <dt>Mode</dt>
         <dd>
             <label>
                 <input type="radio" name="mode" value="direct" checked="checked"/>
-                Direkt
+                Direct
             </label>
-            <label title="Über ein PHP-GUI">
+            <label>
                 <input type="radio" name="mode" value="indirect"/>
-                Indirekt
+                Implicit
             </label>
         </dd>
 
@@ -80,20 +76,19 @@
         <dt>Core-Port</dt>
         <dd><input name="port" type="number" value="9851" required/></dd>
 
-        <dt>Core-Passwort</dt>
+        <dt>Core-Password</dt>
         <dd><input name="password" type="password" value="" required/></dd>
 
         <dt id="status">
-            <span class="success">Gespeichert</span>
-            <span class="error">Fehler</span>
+            <span class="success">saved</span>
+            <span class="error">error</span>
         </dt>
         <dd>
-            <button type="submit">Speichern</button>
+            <button type="submit">Save</button>
         </dd>
     </dl>
 
 </form>
-<script src="../src/jquery.min.js"></script>
 <script src="options.js"></script>
 </body>
 </html>

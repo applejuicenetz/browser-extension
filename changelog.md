@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2020-02-25
+- use `chrome.storage.sync` to sync settings across devices [#1](/../../issues/1)
+- remove jQuery usage from options frame [#2](/../../issues/2)
+
 ## 2020-01-24
 - vcs import 
 - make compatible to Firefox and other Chromium based Browser
