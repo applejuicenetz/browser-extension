@@ -11,13 +11,17 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
     document.querySelector('form').addEventListener('submit', function (e) {
         e.preventDefault();
+
+        let mode = document.querySelector('input[name=mode]:checked').value;
+        let url = document.querySelector('indirect' === mode ? 'input[name=phpgui]' : 'input[name=host]').value.trim();
+
         chrome.permissions.request({
-                origins: ['<all_urls>']
+                origins: [url + '/'] // add missing trailing slash
             },
             function (granted) {
                 if (granted) {
                     chrome.storage.sync.set({
-                        mode: document.querySelector('input[name=mode]:checked').value,
+                        mode: mode,
                         host: document.querySelector('input[name=host]').value.trim(),
                         phpgui: document.querySelector('input[name=phpgui]').value.trim(),
                         port: document.querySelector('input[name=port]').value.trim(),
