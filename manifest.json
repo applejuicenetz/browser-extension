@@ -2,7 +2,8 @@
     "manifest_version": 2,
     "name": "__MSG_extensionName__",
     "description": "__MSG_extensionDescription__",
-    "version": "2.1.0",
+    "version": "2.1.1",
+    "default_locale": "de",
     "permissions": [
         "contextMenus",
         "notifications",
@@ -13,8 +14,7 @@
     ],
     "background": {
         "scripts": [
-            "src/jquery.min.js",
-            "src/md5.js",
+            "src/md5.min.js",
             "src/app.js"
         ]
     },
@@ -27,6 +27,5 @@
         "32": "icons/apple32.png",
         "128": "icons/apple128.png",
         "256": "icons/apple256.png"
-    },
-    "default_locale": "de"
+    }
 }

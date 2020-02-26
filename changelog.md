@@ -1,12 +1,21 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## 2020-02-25
+## 2020-02-26 (2.1.1)
+- drop jQuery usage for http request and use native `window.fetch` instead [#2](/../../issues/2)
+
+## 2020-02-25 (2.1.0)
 - use `chrome.storage.sync` to sync settings across devices [#1](/../../issues/1)
 - remove jQuery usage from options frame [#2](/../../issues/2)
 - only request permission to entered Core URL _or_ phpGUI URL [#3](/../../issues/3)
 
-## 2020-01-24
+## 2020-02-21 (2.0.2)
+-  use `chrome.notifications` instead of html5 `Notification` to work with firefox
+
+## 2020-02-18 (2.0.1)
+-  remove useless `activeTab permissions
+
+## 2020-01-24 (2.0.0)
 - vcs import 
 - make compatible to Firefox and other Chromium based Browser
 - refactor options menu
