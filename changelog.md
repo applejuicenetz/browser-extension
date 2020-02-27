@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2020-02-27 (2.1.2)
+- handle promises with `async` and `await`
+
 ## 2020-02-26 (2.1.1)
 - drop jQuery usage for http request and use native `window.fetch` instead [#2](/../../issues/2)
 

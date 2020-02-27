@@ -1,15 +1,15 @@
-document.addEventListener('DOMContentLoaded', function (event) {
-    document.querySelector('input[name=mode][value=direct]').addEventListener('click', function (e) {
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('input[name=mode][value=direct]').addEventListener('click', () => {
         document.querySelectorAll('.phpgui').forEach(el => el.style.display = 'none');
         document.querySelector('input[name=phpgui]').removeAttribute('required');
     });
 
-    document.querySelector('input[name=mode][value=indirect]').addEventListener('click', function (e) {
+    document.querySelector('input[name=mode][value=indirect]').addEventListener('click', () => {
         document.querySelectorAll('.phpgui').forEach(el => el.style.display = 'block');
         document.querySelector('input[name=phpgui]').setAttribute('required', 'required');
     });
 
-    document.querySelector('form').addEventListener('submit', function (e) {
+    document.querySelector('form').addEventListener('submit', e => {
         e.preventDefault();
 
         let mode = document.querySelector('input[name=mode]:checked').value;

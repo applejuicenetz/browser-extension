@@ -8,19 +8,19 @@ const catcher = {
     },
 
     onClicked: function (info) {
+        let links = info.linkUrl.match(/ajfsp\:\/\/file\|([^|]*)\|([a-z0-9]{32})\|([0-9]*)\//g);
+
+        if (!links || 0 === links.length) {
+            catcher.notification(chrome.i18n.getMessage('linkNotValidTitle'), info.linkUrl);
+            return;
+        }
+
         chrome.storage.sync.get(null, config => {
             if (0 === Object.keys(config).length) {
                 catcher.notification(
                     chrome.i18n.getMessage('missingConfigurationTitle'),
                     chrome.i18n.getMessage('missingConfigurationText')
                 );
-                return;
-            }
-
-            let links = info.linkUrl.match(/ajfsp\:\/\/file\|([^|]*)\|([a-z0-9]{32})\|([0-9]*)\//g);
-
-            if (!links || 0 === links.length) {
-                catcher.notification(chrome.i18n.getMessage('linkNotValidTitle'), info.linkUrl);
                 return;
             }
 
@@ -34,7 +34,7 @@ const catcher = {
         });
     },
 
-    requestImplicit: function (ajfsp, config) {
+    requestImplicit: async function (ajfsp, config) {
         let params = {
             host: config['host'] + ':' + config['port'],
             cpass: md5(config['password']),
@@ -44,22 +44,21 @@ const catcher = {
         let url = new URL(config['phpgui']);
         url.pathname = 'main/top.php';
 
-        window.fetch(url, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: (new URLSearchParams(params)).toString()
-        })
-            .then(result => {
-                result.text().then(data => {
-                    catcher.handleResult(data, ajfsp);
-                });
-            })
-            .catch(error => {
-                catcher.notification('phpGUI connection error', error.toString());
+        try {
+            let result = await window.fetch(url, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: (new URLSearchParams(params)).toString()
             });
+
+            let body = await result.text();
+            catcher.handleResult(body, ajfsp);
+        } catch (e) {
+            catcher.notification('phpGUI connection error', error.toString());
+        }
     },
 
-    requestDirect: function (ajfsp, config) {
+    requestDirect: async function (ajfsp, config) {
         let params = {
             link: ajfsp,
             password: md5(config['password'])
@@ -70,14 +69,14 @@ const catcher = {
         url.port = config['port'];
         url.search = new URLSearchParams(params).toString();
 
-        window.fetch(url).then(result => {
-            result.text().then(data => {
-                catcher.handleResult(data, ajfsp);
-            });
-        }).catch(error => {
-            console.log(error);
-            catcher.notification('Core connection error', error.toString());
-        });
+        try {
+            let result = await window.fetch(url);
+            let body = await result.text();
+
+            catcher.handleResult(body, ajfsp);
+        } catch (e) {
+            catcher.notification('Core connection error', e.toString());
+        }
     },
 
     handleResult: function (result, link) {
@@ -89,7 +88,7 @@ const catcher = {
             return;
         }
 
-        if ('ok' === result || result.match(/Download:(.*)ok/)) {
+        if ('ok' === result || result.match(/newlinkinfo(.*)ok/)) {
             catcher.notification(chrome.i18n.getMessage('linkCatchedSuccessTitle'), link.split('|')[1]);
         } else if (result.match(/already downloaded/)) {
             catcher.notification('already downloaded', link.split('|')[1]);
