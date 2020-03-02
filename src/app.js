@@ -1,12 +1,4 @@
 const catcher = {
-    onInstalled: function () {
-        chrome.contextMenus.create({
-            'title': 'appleJuice Link Catcher',
-            'contexts': ['link'],
-            'id': 'ajfsp_catcher'
-        });
-    },
-
     onClicked: function (info) {
         let links = info.linkUrl.match(/ajfsp\:\/\/file\|([^|]*)\|([a-z0-9]{32})\|([0-9]*)\//g);
 
@@ -107,6 +99,9 @@ const catcher = {
     },
 };
 
-chrome.contextMenus.onClicked.addListener(catcher.onClicked);
-
-chrome.runtime.onInstalled.addListener(catcher.onInstalled);
+chrome.contextMenus.create({
+    title: 'appleJuice Link Catcher',
+    contexts: ['link'],
+    id: 'ajfsp_catcher',
+    onclick: catcher.onClicked
+});

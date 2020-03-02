@@ -1,12 +1,34 @@
 #!/usr/bin/env bash
 
-rm appleJuice-link-catcher.*
+set -e
+
+# Cleanup
+rm -f appleJuice-link-catcher-*
+rm -f manifest.json
+
+# Google Chrome
+cp manifest-chrome.json manifest.json
 
 zip -r \
-    --exclude *.git* \
-    --exclude *.idea* \
-    --exclude *.xpi \
-    --exclude *.crx \
-    --exclude *.zip \
-    --exclude *.sh \
-    -FS ./appleJuice-link-catcher.zip *
+  --exclude *.git* \
+  --exclude *.idea* \
+  --exclude appleJuice-link-catcher-* \
+  --exclude manifest-*.json \
+  --exclude *.sh \
+  --exclude *.md \
+  -FS ./appleJuice-link-catcher-chrome.zip *
+rm -f manifest.json
+
+# Mozilla Firefox
+cp manifest-firefox.json manifest.json
+
+zip -r \
+  --exclude *.git* \
+  --exclude *.idea* \
+  --exclude appleJuice-link-catcher-* \
+  --exclude manifest-*.json \
+  --exclude *.sh \
+  --exclude *.md \
+  -FS ./appleJuice-link-catcher-firefox.xpi *
+
+rm -f manifest.json

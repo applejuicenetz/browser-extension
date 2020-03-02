@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "__MSG_extensionName__",
     "description": "__MSG_extensionDescription__",
-    "version": "2.1.2",
+    "version": "2.1.4",
     "default_locale": "de",
     "permissions": [
         "contextMenus",
@@ -27,5 +27,10 @@
         "32": "icons/apple32.png",
         "128": "icons/apple128.png",
         "256": "icons/apple256.png"
+    },
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "{c4aadf91-78d0-4ef1-b229-b86362bbb530}"
+        }
     }
 }
