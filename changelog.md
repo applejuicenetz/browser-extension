@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2020-03-02 (2.1.4)
+- register always `contextMenus` and not only on installation
+- add missing Add-On ID for `gecko` and `chrome.storage.sync` usage
+
 ## 2020-02-27 (2.1.2)
 - handle promises with `async` and `await`
 

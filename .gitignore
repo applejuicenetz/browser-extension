@@ -1,3 +1,5 @@
 .idea
 
-appleJuice-link-catcher.*
+appleJuice-link-catcher-*
+
+manifest.json
