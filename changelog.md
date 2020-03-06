@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2020-03-06 (2.1.5)
+- correct definition of the port option; `CORE-XML-Port` instead of `Core-Port`
+
 ## 2020-03-02 (2.1.4)
 - register always `contextMenus` and not only on installation
 - add missing Add-On ID for `gecko` and `chrome.storage.sync` usage
