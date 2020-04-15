@@ -23,7 +23,7 @@ All notable changes to this project will be documented in this file.
 -  use `chrome.notifications` instead of html5 `Notification` to work with firefox
 
 ## 2020-02-18 (2.0.1)
--  remove useless `activeTab permissions
+-  remove useless `activeTab` permissions
 
 ## 2020-01-24 (2.0.0)
 - vcs import 
