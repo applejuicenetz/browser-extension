@@ -8,12 +8,12 @@
 ## Funktion 
 Über das Kontextmenü können die `ajfsp` Links `direkt` und `ohne Umwege` an den Core übergeben werden. 
 
-Gerade für macOS und Linux Anwender eine super alternative da dort die Linkübernahme fehlerhaft ist!
+Gerade für macOS und Linux Anwender eine super alternative da dort das Übernehmen der Links fehlerhaft ist!
 
 ## Wichtig 
-Das AddOn muss vor Verwendung mit euren Core Daten über die `Optionen` konfiguriert werden!
+Das AddOn **muss** vor Verwendung mit euren Core Daten über die `Optionen` konfiguriert werden!
 
-Danach mit dem Sekundärklick bzw. Rechtsklick einen `ajfsp` Link auswählen und den neuen Menüpunkt auswählen. 
+Danach mit dem **Sekundärklick** bzw. **Rechtsklick** einen `ajfsp` Link auswählen und den neuen Menüpunkt auswählen. 
 
 
 ## Konfiguration
@@ -27,8 +27,8 @@ URL der phpGUI könnte sein: https://phpgui.knastbruder.applejuicenet.de
 - wenn der Core auf dem gleichen Gerät läuft: `http://127.0.0.1`
 - sofern der Core auf einem anderen Gerät läuft die IP oder den festen Hostnamen, z.B: `http://192.168.1.2`
 
-### PORT 
-Der XML Port des Cores (per default 9851) 
+### XML-PORT 
+Der XML Port des Cores (per default `9851`) 
 
 ### Passwort 
 Der Core muss ein Passwort haben (`chpw` im Core Fenster eingeben)
