@@ -1,7 +1,7 @@
 # appleJuice Browser Extension
 
-![](https://img.shields.io/github/license/applejuicenet/browser-extension.svg?style=for-the-badge)
-![](https://img.shields.io/github/tag/applejuicenet/browser-extension.svg?style=for-the-badge)
+![](https://img.shields.io/github/license/applejuicenetz/browser-extension.svg?style=for-the-badge)
+![](https://img.shields.io/github/tag/applejuicenetz/browser-extension.svg?style=for-the-badge)
 [![](https://img.shields.io/chrome-web-store/v/kidjbmkomidijgbealkgeadgamkdgdch?style=for-the-badge)](https://chrome.google.com/webstore/detail/applejuice-link-catcher/kidjbmkomidijgbealkgeadgamkdgdch)
 [![](https://img.shields.io/amo/v/applejuice-link-catcher?style=for-the-badge)](https://addons.mozilla.org/de/firefox/addon/applejuice-link-catcher/)
 
@@ -21,7 +21,7 @@ Danach mit dem **Sekundärklick** bzw. **Rechtsklick** einen `ajfsp` Link auswä
 ### Modus 
 Im Regelfall direkt, indirekt nur, wenn ihr hinter einer Firewall oder Proxy sitzt (z.B. im Office). 
 
-URL der phpGUI könnte sein: https://phpgui.knastbruder.applejuicenet.de 
+URL der phpGUI könnte sein: https://phpgui.applejuicenet.cc 
 
 ### HOST/IP
 - wenn der Core auf dem gleichen Gerät läuft: `http://127.0.0.1`
