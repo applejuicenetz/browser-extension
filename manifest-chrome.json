@@ -14,7 +14,7 @@
     ],
     "background": {
         "scripts": [
-            "src/md5.min.js",
+            "src/md5.js",
             "src/app.js"
         ]
     },

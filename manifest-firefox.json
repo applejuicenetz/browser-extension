@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "__MSG_extensionName__",
     "description": "__MSG_extensionDescription__",
-    "version": "2.1.5",
+    "version": "2.1.6",
     "default_locale": "de",
     "permissions": [
         "contextMenus",
@@ -14,7 +14,7 @@
     ],
     "background": {
         "scripts": [
-            "src/md5.min.js",
+            "src/md5.js",
             "src/app.js"
         ]
     },
