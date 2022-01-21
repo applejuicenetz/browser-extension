@@ -1,9 +1,14 @@
 # appleJuice Browser Extension
 
-![](https://img.shields.io/github/license/applejuicenetz/browser-extension.svg?style=for-the-badge)
 ![](https://img.shields.io/github/tag/applejuicenetz/browser-extension.svg?style=for-the-badge)
+![](https://img.shields.io/github/license/applejuicenetz/browser-extension.svg?style=for-the-badge)
+
 [![](https://img.shields.io/chrome-web-store/v/kidjbmkomidijgbealkgeadgamkdgdch?style=for-the-badge)](https://chrome.google.com/webstore/detail/applejuice-link-catcher/kidjbmkomidijgbealkgeadgamkdgdch)
+[![](https://img.shields.io/chrome-web-store/users/kidjbmkomidijgbealkgeadgamkdgdch?style=for-the-badge&logo=google-chrome)](https://chrome.google.com/webstore/detail/applejuice-link-catcher/kidjbmkomidijgbealkgeadgamkdgdch)
+
 [![](https://img.shields.io/amo/v/applejuice-link-catcher?style=for-the-badge)](https://addons.mozilla.org/de/firefox/addon/applejuice-link-catcher/)
+[![](https://img.shields.io/amo/users/applejuice-link-catcher?style=for-the-badge&logo=firefox)](https://addons.mozilla.org/de/firefox/addon/applejuice-link-catcher/)
+
 
 ## Funktion 
 Über das Kontextmenü können die `ajfsp` Links `direkt` und `ohne Umwege` an den Core übergeben werden. 
