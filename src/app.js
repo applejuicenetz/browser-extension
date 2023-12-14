@@ -37,7 +37,7 @@ const catcher = {
         url.pathname = 'main/top.php';
 
         try {
-            let result = await window.fetch(url, {
+            let result = await fetch(url, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 body: (new URLSearchParams(params)).toString()
@@ -62,7 +62,7 @@ const catcher = {
         url.search = new URLSearchParams(params).toString();
 
         try {
-            let result = await window.fetch(url);
+            let result = await fetch(url);
             let body = await result.text();
 
             catcher.handleResult(body, ajfsp);
@@ -92,7 +92,7 @@ const catcher = {
     notification: function (title, text) {
         chrome.notifications.create(null, {
             type: 'basic',
-            iconUrl: 'icons/apple256.png',
+            iconUrl: '/icons/apple256.png',
             title: title,
             message: text
         });
@@ -102,6 +102,7 @@ const catcher = {
 chrome.contextMenus.create({
     title: 'appleJuice Link Catcher',
     contexts: ['link'],
-    id: 'ajfsp_catcher',
-    onclick: catcher.onClicked
+    id: 'ajfsp_catcher'
 });
+
+chrome.contextMenus.onClicked.addListener(catcher.onClicked);

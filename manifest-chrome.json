@@ -1,25 +1,21 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "__MSG_extensionName__",
     "description": "__MSG_extensionDescription__",
-    "version": "2.1.5",
+    "version": "2.1.6",
     "default_locale": "de",
     "permissions": [
         "contextMenus",
         "notifications",
         "storage"
     ],
-    "optional_permissions": [
+    "optional_host_permissions": [
         "*://*/*"
     ],
     "background": {
-        "scripts": [
-            "src/md5.js",
-            "src/app.js"
-        ]
+        "service_worker": "src/init.js"
     },
     "options_ui": {
-        "chrome_style": true,
         "page": "options/options.html"
     },
     "icons": {
