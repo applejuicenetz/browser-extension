@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.2.2
+## 2.2.0
 
 - Erlaube Core Verbindung zu `localhost` ohne Passwort
 - Erzwinge Passwort bei Verbindungen wenn nicht `localhost`
