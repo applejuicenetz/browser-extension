@@ -2,11 +2,13 @@
 
 ## 2.2.0
 
+- `Core Host` vorausgefüllt mit `http://127.0.0.1`
 - Erlaube Core Verbindung zu `localhost` ohne Passwort
 - Erzwinge Passwort bei Verbindungen wenn nicht `localhost`
 - öffne Optionen nach erst installation
-- öffne Optionen nach update, sofern Erweiterung noch (immer) nicht konfiguriert ist
+- öffne Optionen beim klick auf die Erweiterung in der Browser Toolbar
 - öffne Optionen beim klick auf Benachrichtigung bei Fehlern
+- öffne Optionen nach update, sofern Erweiterung noch (immer) nicht konfiguriert ist
 
 ## 2.1.6
 
