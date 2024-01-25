@@ -12,8 +12,16 @@
         "description": "title for message if extension not configured"
     },
     "missingConfigurationText": {
-        "message": "bitte konfigurier mich.",
+        "message": "bitte konfiguriere mich.",
         "description": "text for message if extension not configured"
+    },
+    "missingConfigurationDescription": {
+        "message": "Die Konfiguration wurde noch nie gespeichert. Bitte auf speichern drücken.",
+        "description": "text for message if configuration never saved"
+    },
+    "missingPasswordText": {
+        "message": "Passwort wird benötigt wenn Core IP nicht Lokal ist.",
+        "description": "text for message if configuration never saved"
     },
     "linkNotValidTitle": {
         "message": "kein gültiger appleJuice Link",

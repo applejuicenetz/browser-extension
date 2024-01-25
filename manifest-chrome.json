@@ -1,27 +1,28 @@
 {
-    "manifest_version": 3,
-    "name": "__MSG_extensionName__",
-    "description": "__MSG_extensionDescription__",
-    "version": "2.1.6",
-    "default_locale": "de",
-    "permissions": [
-        "contextMenus",
-        "notifications",
-        "storage"
-    ],
-    "optional_host_permissions": [
-        "*://*/*"
-    ],
-    "background": {
-        "service_worker": "src/init.js"
-    },
-    "options_ui": {
-        "page": "options/options.html"
-    },
-    "icons": {
-        "16": "icons/apple16.png",
-        "32": "icons/apple32.png",
-        "128": "icons/apple128.png",
-        "256": "icons/apple256.png"
-    }
+  "manifest_version": 3,
+  "name": "__MSG_extensionName__",
+  "description": "__MSG_extensionDescription__",
+  "version": "2.2.0",
+  "default_locale": "de",
+  "permissions": [
+    "contextMenus",
+    "notifications",
+    "storage"
+  ],
+  "optional_host_permissions": [
+    "*://*/*"
+  ],
+  "background": {
+    "service_worker": "src/init.js"
+  },
+  "action": {},
+  "options_ui": {
+    "page": "options/options.html"
+  },
+  "icons": {
+    "16": "icons/apple16.png",
+    "32": "icons/apple32.png",
+    "128": "icons/apple128.png",
+    "256": "icons/apple256.png"
+  }
 }

@@ -4,10 +4,6 @@
     <title>appleJuice Link Catcher</title>
     <meta charset="utf-8">
     <style>
-        form {
-            margin: 1em;
-        }
-
         dl {
             display: flex;
             flex-flow: row;
@@ -32,7 +28,7 @@
         }
 
         input:not([type="radio"]) {
-            width: 90%;
+            width: 50%;
         }
 
         .phpgui {
@@ -54,6 +50,12 @@
             color: red;
             font-weight: bold;
         }
+
+        .warning {
+            display: none;
+            color: orange;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -72,26 +74,30 @@
         </dd>
 
         <dt class="phpgui">PHP-GUI URL/IP</dt>
-        <dd class="phpgui"><input name="phpgui" type="url" value="" placeholder="http://"/></dd>
+        <dd class="phpgui"><input name="phpgui" type="url" value="" placeholder="https://phpgui.applejuicenet.cc"/></dd>
 
         <dt>Core-URL/IP</dt>
-        <dd><input name="host" type="url" value="" placeholder="http://" required/></dd>
+        <dd><input name="host" type="url" value="http://127.0.0.1" placeholder="" required/></dd>
 
         <dt>Core-XML-Port</dt>
         <dd><input name="port" type="number" value="9851" required/></dd>
 
         <dt>Core-Password</dt>
-        <dd><input name="password" type="password" value="" required/></dd>
+        <dd><input name="password" type="password" value=""/></dd>
 
-        <dt id="status">
-            <span class="success">saved</span>
-            <span class="error">error</span>
-        </dt>
+        <dt></dt>
         <dd>
             <button type="submit">Save</button>
         </dd>
-    </dl>
 
+        <dt></dt>
+        <dd id="status">
+            <span class="success">saved</span>
+            <span class="error">error</span>
+            <span class="warning">test</span>
+        </dd>
+    </dl>
+    <br>
 </form>
 <script src="options.js"></script>
 </body>

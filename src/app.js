@@ -1,5 +1,5 @@
 const catcher = {
-    onClicked: function (info) {
+    onClicked: async function (info) {
         let links = info.linkUrl.match(/ajfsp\:\/\/file\|([^|]*)\|([a-z0-9]{32})\|([0-9]*)\//g);
 
         if (!links || 0 === links.length) {
@@ -8,11 +8,15 @@ const catcher = {
         }
 
         chrome.storage.sync.get(null, config => {
-            if (0 === Object.keys(config).length) {
+            if (!config || 0 === Object.keys(config).length) {
                 catcher.notification(
                     chrome.i18n.getMessage('missingConfigurationTitle'),
-                    chrome.i18n.getMessage('missingConfigurationText')
+                    chrome.i18n.getMessage('missingConfigurationText'),
+                    'config_error'
                 );
+
+                chrome.runtime.openOptionsPage();
+
                 return;
             }
 
@@ -46,7 +50,8 @@ const catcher = {
             let body = await result.text();
             catcher.handleResult(body, ajfsp);
         } catch (e) {
-            catcher.notification('phpGUI connection error', error.toString());
+            catcher.notification('phpGUI connection error', error.toString(), 'config_error');
+            chrome.runtime.openOptionsPage();
         }
     },
 
@@ -67,7 +72,8 @@ const catcher = {
 
             catcher.handleResult(body, ajfsp);
         } catch (e) {
-            catcher.notification('Core connection error', e.toString());
+            catcher.notification('Core connection error', e.toString(), 'config_error');
+            chrome.runtime.openOptionsPage();
         }
     },
 
@@ -75,8 +81,10 @@ const catcher = {
         if (result.match('wrong password. access denied')) {
             catcher.notification(
                 chrome.i18n.getMessage('coreWrongPasswordTitle'),
-                chrome.i18n.getMessage('coreWrongPasswordText')
+                chrome.i18n.getMessage('coreWrongPasswordText'),
+                'config_error'
             );
+            chrome.runtime.openOptionsPage();
             return;
         }
 
@@ -89,12 +97,12 @@ const catcher = {
         }
     },
 
-    notification: function (title, text) {
-        chrome.notifications.create(null, {
+    notification: function (title, text, id) {
+        chrome.notifications.create(id, {
             type: 'basic',
             iconUrl: '/icons/apple256.png',
             title: title,
-            message: text
+            message: text,
         });
     },
 };
@@ -106,3 +114,26 @@ chrome.contextMenus.create({
 });
 
 chrome.contextMenus.onClicked.addListener(catcher.onClicked);
+
+chrome.action.onClicked.addListener(() => {
+    chrome.runtime.openOptionsPage();
+});
+
+chrome.runtime.onInstalled.addListener(function (details) {
+    chrome.storage.sync.get(null, config => {
+        if (!config || 0 === Object.keys(config).length) {
+            catcher.notification(
+                chrome.i18n.getMessage('missingConfigurationTitle'),
+                chrome.i18n.getMessage('missingConfigurationText'),
+                'config_error'
+            );
+            chrome.runtime.openOptionsPage();
+        }
+    });
+});
+
+chrome.notifications.onClicked.addListener(function (notificationId) {
+    if (notificationId === 'config_error') {
+        chrome.runtime.openOptionsPage();
+    }
+});
