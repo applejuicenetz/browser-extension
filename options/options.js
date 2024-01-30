@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     });
 
-    chrome.storage.sync.get(null).then((config) => {
+    chrome.storage.sync.get(null, function (config) {
         if (config && 0 !== Object.keys(config).length) {
             document.querySelector('input[name=mode][value=' + config['mode'] + ']').click();
             document.querySelector('input[name=phpgui]').value = config['phpgui'];

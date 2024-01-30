@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.2.0
+## 2.2.1
 
 - `Core Host` vorausgefüllt mit `http://127.0.0.1`
 - Erlaube Core Verbindung zu `localhost` ohne Passwort

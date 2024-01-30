@@ -1,5 +1,5 @@
 const catcher = {
-    onClicked: async function (info) {
+    onClicked: function (info) {
         let links = info.linkUrl.match(/ajfsp\:\/\/file\|([^|]*)\|([a-z0-9]{32})\|([0-9]*)\//g);
 
         if (!links || 0 === links.length) {
@@ -115,7 +115,13 @@ chrome.contextMenus.create({
 
 chrome.contextMenus.onClicked.addListener(catcher.onClicked);
 
-chrome.action.onClicked.addListener(() => {
+// manifest v3 support for chromium
+chrome.action?.onClicked.addListener(() => {
+    chrome.runtime.openOptionsPage();
+});
+
+// manifest v2 support for mozilla
+chrome.browserAction?.onClicked.addListener(() => {
     chrome.runtime.openOptionsPage();
 });
 

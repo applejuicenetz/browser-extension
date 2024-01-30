@@ -1,21 +1,24 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2,
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "default_locale": "de",
   "permissions": [
     "contextMenus",
     "notifications",
     "storage"
   ],
-  "optional_host_permissions": [
+  "optional_permissions": [
     "*://*/*"
   ],
   "background": {
-    "service_worker": "src/init.js"
+    "scripts": [
+      "src/md5.js",
+      "src/app.js"
+    ]
   },
-  "action": {},
+  "browser_action": {},
   "options_ui": {
     "page": "options/options.html"
   },
@@ -24,5 +27,10 @@
     "32": "icons/apple32.png",
     "128": "icons/apple128.png",
     "256": "icons/apple256.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{c4aadf91-78d0-4ef1-b229-b86362bbb530}"
+    }
   }
 }
