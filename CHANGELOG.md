@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.0
+
+- bugfix für indirekte Verbindung über `phpGUI` ab Version `0.29.0`
+
 ## 2.2.1
 
 - `Core Host` vorausgefüllt mit `http://127.0.0.1`

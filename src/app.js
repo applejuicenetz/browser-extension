@@ -38,7 +38,7 @@ const catcher = {
         };
 
         let url = new URL(config['phpgui']);
-        url.pathname = 'main/top.php';
+        url.pathname = !config['phpgui'].endsWith('.php') ? 'index.php' : '';
 
         try {
             let result = await fetch(url, {
@@ -50,7 +50,7 @@ const catcher = {
             let body = await result.text();
             catcher.handleResult(body, ajfsp);
         } catch (e) {
-            catcher.notification('phpGUI connection error', error.toString(), 'config_error');
+            catcher.notification('phpGUI connection error', e.toString(), 'config_error');
             chrome.runtime.openOptionsPage();
         }
     },
