@@ -1,6 +1,6 @@
 const catcher = {
     onClicked: function (info) {
-        let links = info.linkUrl.match(/ajfsp\:\/\/file\|([^|]*)\|([a-z0-9]{32})\|([0-9]*)\//g);
+        let links = info.linkUrl.replace(/%7C/g, '|').match(/ajfsp\:\/\/file\|([^|]*)\|([a-z0-9]{32})\|([0-9]*)\//g);
 
         if (!links || 0 === links.length) {
             catcher.notification(chrome.i18n.getMessage('linkNotValidTitle'), info.linkUrl);

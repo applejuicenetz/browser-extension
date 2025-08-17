@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.1
+
+- Anpassung für `ajfsp` Links welche `%7C` statt `|` enthalten
+
 ## 2.3.0
 
 - bugfix für indirekte Verbindung über `phpGUI` ab Version `0.29.0`
